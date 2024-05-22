@@ -10,6 +10,11 @@
             @csrf
 
             <div>
+                <x-label for="id" value="{{ __('auth.user_id') }}" />
+                <x-input id="id" min="0" class="block mt-1 w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" type="number" name="id" :value="old('id')" required autofocus autocomplete="id" />
+            </div>
+
+            <div>
                 <x-label for="name" value="{{ __('Name') }}" />
                 <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             </div>
@@ -17,6 +22,16 @@
             <div class="mt-4">
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            </div>
+
+            <div class="mt-4">
+                <x-label for="type" value="{{ __('auth.user_type') }}" />
+                <select name="type" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" id="type" :value="old('type')">
+                    <option value="" selected disabled>Seleccione uno</option>
+                    @foreach ( $user_types as $type)
+                        <option value="{{ $type->value }}">{{ str($type->name)->replace('_',' ') }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="mt-4">

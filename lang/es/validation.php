@@ -12,7 +12,7 @@ return [
     | las reglas de tamaño. Siéntete libre de ajustar cada uno de estos mensajes aquí.
     |
     */
-
+    'error.title' => 'Parece que algo anda mal.',
     'accepted' => 'El campo :attribute debe ser aceptado.',
     'accepted_if' => 'El campo :attribute debe ser aceptado cuando :other sea :value.',
     'active_url' => 'El campo :attribute debe ser una URL válida.',

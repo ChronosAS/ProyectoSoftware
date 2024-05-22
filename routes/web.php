@@ -1,9 +1,10 @@
 <?php
 
+use App\Livewire\User\Index;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Route::middleware([
@@ -14,4 +15,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::prefix('/user')->group(function(){
+        Route::get('/',Index::class)->name('users.index');
+    });
 });

@@ -9,6 +9,6 @@ enum UserType: string
     use EnumOptions;
 
     case Normal = 'normal';
-    case Descapacitado = 'descapacitado';
-    case TerceraEdad = '3era edad';
+    case Discapacitado = 'discapacitado';
+    case Tercera_Edad = '3era edad';
 }

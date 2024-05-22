@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enum\UserType;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +21,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements HasMedia
 {
     use InteractsWithMedia;
+    use HasUuids;
     use HasRoles;
     use HasApiTokens;
     use HasFactory;
@@ -39,9 +41,12 @@ class User extends Authenticatable implements HasMedia
      * @var array<int, string>
      */
     protected $fillable = [
+        'document',
         'name',
         'email',
         'password',
+        'type',
+        'accepted'
     ];
 
     /**
@@ -68,7 +73,7 @@ class User extends Authenticatable implements HasMedia
                   ->orWhere('name','like','%'.$term.'%')
                   ->orWhere('email','like','%'.$term.'%')
                   ->orWhere('type','like','%'.$term.'%')
-                  ->orWhereRelation('addresses','address','like','%'.$term.'%')
+                  ->orWhereRelation('addresses','address','like','%'.$term.'%');
         }
     }
 
