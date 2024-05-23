@@ -69,7 +69,7 @@ class User extends Authenticatable implements HasMedia
     public function scopeSearch($query, $term) : void
     {
         if($term){
-            $query->where('id','like','%'.$term.'%')
+            $query->where('document','like','%'.$term.'%')
                   ->orWhere('name','like','%'.$term.'%')
                   ->orWhere('email','like','%'.$term.'%')
                   ->orWhere('type','like','%'.$term.'%')

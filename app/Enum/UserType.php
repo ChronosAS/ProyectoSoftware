@@ -10,5 +10,5 @@ enum UserType: string
 
     case Normal = 'normal';
     case Discapacitado = 'discapacitado';
-    case Tercera_Edad = '3era edad';
+    case Tercera_Edad = 'tercera_edad';
 }
