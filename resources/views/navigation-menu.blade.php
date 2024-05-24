@@ -17,7 +17,7 @@
                     </x-nav-link>
                     @can('user:access')
                         <x-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
-                            {{ __('Users') }}
+                            {{ __('Usuarios') }}
                         </x-nav-link>
                     @endcan
                 </div>
