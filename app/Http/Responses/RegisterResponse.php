@@ -2,17 +2,28 @@
 
 namespace App\Http\Responses;
 
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 
 class RegisterResponse implements RegisterResponseContract
 {
 
+    protected $guard;
+
+    public function __construct(StatefulGuard $guard)
+    {
+        $this->guard = $guard;
+    }
+
     public function toResponse($request)
     {
-        session()->flash('flash.banner','Gracias por Registrarse, porfavor espere a que su cuenta sea aprovada');
-        session()->flash('flash.bannerStyle','success');
-        return redirect()->route('login');
+        if(!User::findOrFail(auth()->user()->id)->accepted)
+        {
+            $this->guard->logout();
+        }
+
+        return redirect()->intended(config('fortify.home'));
     }
 
 }

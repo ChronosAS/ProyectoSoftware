@@ -19,7 +19,7 @@
     </head>
     <body>
         <x-banner />
-        <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
+        <div x-data="{}" class="font-sans text-gray-900 dark:text-gray-100 antialiased">
             {{ $slot }}
         </div>
 

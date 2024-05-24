@@ -63,7 +63,7 @@ class User extends Authenticatable implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('user-medical-files');
+        $this->addMediaCollection('medical-report');
     }
 
     public function scopeSearch($query, $term) : void
