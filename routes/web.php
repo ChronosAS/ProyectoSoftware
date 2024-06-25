@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\User\Index;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +16,9 @@ Route::middleware([
     })->name('dashboard');
 
     Route::prefix('/user')->group(function(){
-        Route::get('/',Index::class)->name('users.index');
+        Route::get('/',App\Livewire\User\Index::class)->name('users.index');
+        Route::get('/create',App\Livewire\User\Create::class)->name('users.create');
+        Route::get('/edit/{user}',App\Livewire\User\Edit::class)->name('users.edit');
+        Route::get('/{user}',App\Livewire\User\Show::class)->name('users.show');
     });
 });

@@ -4,6 +4,7 @@ namespace App\Livewire\User;
 
 use App\Concerns\LivewireCustomPagination;
 use App\Models\User;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class Index extends Component
@@ -31,6 +32,7 @@ class Index extends Component
                 'type',
                 'accepted'
             ])
+            ->where('id','!=',auth()->user()->id)
             ->when($this->type, function ($query){
                 return $query->where('type', $this->type);
             })
@@ -42,11 +44,12 @@ class Index extends Component
             ->paginate($this->perPage);
     }
 
+    #[Layout('layouts.app',['header'=>'Usuarios'])]
     public function render()
     {
         return view('livewire.user.index',[
             'users' => $this->loadUsers(),
-            'statuses' => [1 => 'Active',0 => 'Inactive'],
-        ])->layout('layouts.app',['header'=>'Usuarios']);
+            'statuses' => [1 => 'Activo',0 => 'Inactivo'],
+        ]);
     }
 }

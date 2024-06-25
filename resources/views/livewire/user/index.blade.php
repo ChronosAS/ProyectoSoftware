@@ -157,7 +157,9 @@
                                         </div>
                                     </th>
                                     <th scope="col" class="px-6 py-3">
-                                        Action
+                                        <x-button-href href="{{ route('users.create') }}">
+                                            Crear
+                                        </x-button-href>
                                     </th>
                                 </tr>
                             </thead>
@@ -186,7 +188,8 @@
                                                     : '<span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>Inactivo</span>' !!}
                                             </td>
                                             <td class="px-6 py-4">
-                                                <a href="{{ route('dashboard') }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                <a href="{{ route('users.show',$user) }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
+                                                <a href="{{ route('users.edit',$user) }}" wire:navigate class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                                             </td>
                                         </tr>
                                     @else
@@ -206,7 +209,8 @@
                                                     : '<span class="flex items-center text-sm font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>Inactivo</span>' !!}
                                             </td>
                                             <td class="px-6 py-4">
-                                                <a href="{{ route('dashboard') }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                                <a href="{{ route('users.show',$user) }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
+                                                <a href="{{ route('users.edit',$user) }}" wire:navigate class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                                             </td>
                                         </tr>
                                     @endif

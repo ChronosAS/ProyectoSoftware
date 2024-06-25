@@ -51,9 +51,10 @@ class CreateNewUser implements CreatesNewUsers
             'type' => $input['type'],
             'password' => Hash::make($input['password']),
         ]);
-
-        $user->addMedia($input['report'])
+        if($input['report']){
+            $user->addMedia($input['report'])
             ->toMediaCollection('medical-report');
+        }
 
         return $user;
     }
