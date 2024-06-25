@@ -26,6 +26,7 @@ class Show extends Component
 
     public function acceptUser()
     {
+
         $this->user->update([
             'accepted' => ($this->user->accepted == 1) ? 0 : 1
         ]);

@@ -2,16 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Address extends Model
 {
     use HasFactory;
+    use HasUuids;
 
     protected $fillable = [
-        'address'
+        'address',
+        'phone_1',
+        'phone_2'
     ];
 
     public function scopeSearch($query,$term) : void
@@ -24,8 +29,8 @@ class Address extends Model
         }
     }
 
-    public function user() : BelongsTo
+    public function entity() : MorphTo
     {
-        return $this->belongsTo(User::class);
+        return $this->morphTo();
     }
 }

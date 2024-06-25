@@ -20,6 +20,40 @@
                             {{ __('Usuarios') }}
                         </x-nav-link>
                     @endcan
+                    @can('provider:access')
+                        <x-nav-link href="{{ route('providers.index') }}" :active="request()->routeIs('providers.index')">
+                            Proveedores
+                        </x-nav-link>
+                    @endcan
+                </div>
+                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                    <div class="ms-3 relative">
+                        @can('article:access')
+                            <x-dropdown align="left" width="48">
+                                <x-slot name="trigger">
+                                    <span class="inline-flex rounded-md text-gray-400 cursor-pointer">
+                                        Articulos
+                                    </span>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <!-- Account Management -->
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Manage Account') }}
+                                    </div>
+
+                                    <x-dropdown-link href="{{ route('articles.index') }}">
+                                        Listado
+                                    </x-dropdown-link>
+
+
+                                    <x-dropdown-link href="{{ route('categories.index') }}">
+                                        Categorias
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        @endcan
+                    </div>
                 </div>
             </div>
 
@@ -147,9 +181,39 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @can('user:access')
+                <x-responsive-nav-link href="{{ route('users.index') }}" :active="request()->routeIs('users.index')">
+                    {{ __('Usuarios') }}
+                </x-responsive-nav-link>
+            @endcan
+            @can('provider:access')
+                <x-responsive-nav-link href="{{ route('providers.index') }}" :active="request()->routeIs('providers.index')">
+                    Proveedores
+                </x-responsive-nav-link>
+            @endcan
         </div>
+        @can('article:access')
+            <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+                <div class="flex items-center px-4">
+                    <div>
+                        <div class="font-medium text-base text-gray-800 dark:text-gray-200">Articulos</div>
+                    </div>
+                </div>
 
-        <!-- Responsive Settings Options -->
+                <div class="mt-3 space-y-1">
+
+                    <x-responsive-nav-link href="{{ route('articles.index') }}" :active="request()->routeIs('articles.index')">
+                        Listado
+                    </x-responsive-nav-link>
+
+
+                    <x-responsive-nav-link href="{{ route('categories.index') }}" :active="request()->routeIs('categories.index')">
+                        Categorias
+                    </x-responsive-nav-link>
+
+                </div>
+            </div>
+        @endcan
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())

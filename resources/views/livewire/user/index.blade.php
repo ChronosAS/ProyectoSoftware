@@ -164,7 +164,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @forelse ($users as $user)
                                     @if ($loop->last)
                                         <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                                             {{-- <td class="w-4 p-4">
@@ -214,7 +214,13 @@
                                             </td>
                                         </tr>
                                     @endif
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td class="px-6 py-4 text-center text-xl">
+                                            No hay usuarios registrados.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         <div class="m-4 text-white dark:text-white">

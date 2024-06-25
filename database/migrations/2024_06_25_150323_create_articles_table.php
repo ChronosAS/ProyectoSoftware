@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
-            $table->uuidMorphs('entity');
-            $table->string('address',500);
-            $table->string('phone_1');
-            $table->string('phone_2')->nullable();
+        Schema::create('articles', function (Blueprint $table) {
+            $table->uuid('id');
+            $table->foreignUuid('category_id');
+            $table->string('name');
+            $table->string('description',200)->nullable();
+            $table->unsignedInteger('stock')->nullable();
+            $table->decimal('price',total:10,places:2)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('articles');
     }
 };

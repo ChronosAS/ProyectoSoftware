@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ $user->name }}
+            {{ $provider->name }}
         </h2>
     </x-slot>
 
@@ -23,40 +23,6 @@
                 </div> --}}
 
                 <div class="bg-gray-200 dark:bg-gray-800 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8">
-                    <div>
-                        <div class="flex items-center">
-                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Estado:
-                            </h2>
-                        </div>
-                        {!! ($user->accepted)
-                            ? '<span class="flex items-center mt-4 text-lg font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-green-600 rounded-full me-1.5 flex-shrink-0"></span>Activo</span>'
-                            : '<span class="flex items-center mt-4 text-lg font-medium text-gray-900 dark:text-white me-3"><span class="flex w-2.5 h-2.5 bg-red-600 rounded-full me-1.5 flex-shrink-0"></span>Inactivo</span>'
-                        !!}
-                    </div>
-                    <div>
-                        <div class="flex items-center">
-                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Cedula:
-                            </h2>
-                        </div>
-
-                        <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
-                            {{ $user->document }}
-                        </p>
-                    </div>
-
-                    <div>
-                        <div class="flex items-center">
-                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Tipo:
-                            </h2>
-                        </div>
-
-                        <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
-                            {{ str($user->type->name)->replace('_',' ') }}
-                        </p>
-                    </div>
 
                     <div>
                         <div class="flex items-center">
@@ -66,7 +32,7 @@
                         </div>
 
                         <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
-                            {{ $user->email }}
+                            {{ $provider->email }}
                         </p>
 
                     </div>
@@ -78,7 +44,7 @@
                             </h2>
                         </div>
                         <ul>
-                            @forelse ($user->addresses as $address)
+                            @forelse ($provider->addresses as $address)
                             <li>
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
                                     {{ $address->address.','.$address->phone_1.'/'.$address->phone_2 }}
@@ -93,24 +59,7 @@
                             @endforelse
                         </ul>
                     </div>
-                    <div class="text-right col-span-2 space-x-2">
-                        @if ($user->type->name == 'Discapacitado')
-                            <x-button wire:click="showReport()">
-                                Ver Informe Medico
-                            </x-button>
-                        @endif
-                        @if ($user->accepted == 0)
-                            <x-success-button wire:click="acceptUser()" wire:loading.attr="disabled">
-                                Activar Usuario
-                            </x-success-button>
-                        @else
-                            <x-danger-button wire:click="acceptUser()" wire:loading.attr="disabled">
-                                Desactivar Usuario
-                            </x-danger-button>
-                        @endif
-                    </div>
                 </div>
-
             </div>
         </div>
     </div>
