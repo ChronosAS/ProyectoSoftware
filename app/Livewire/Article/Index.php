@@ -19,6 +19,14 @@ class Index extends Component
         'sortAsc' => ['except'=>false]
     ];
 
+    public function delete($article)
+    {
+        $article = Article::withTrashed()->find($article);
+        $article->categories()->detach($article->categories->pluck('id')->toArray());
+        $article->providers()->detach($article->providers->pluck('id')->toArray());
+        $article->forceDelete();
+    }
+
     private function loadArticles(){
         return Article::query()
             ->select([

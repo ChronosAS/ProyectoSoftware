@@ -19,6 +19,13 @@ class Index extends Component
         'sortAsc' => ['except'=>false]
     ];
 
+    public function delete($category)
+    {
+        $category = Category::withTrashed()->find($category);
+        $category->articles()->detach($category->articles->pluck('id')->toArray());
+        $category->forceDelete();
+    }
+
     private function loadCategories(){
         return Category::query()
             ->select([

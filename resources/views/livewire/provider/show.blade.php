@@ -53,7 +53,29 @@
                             @empty
                                 <li>
                                     <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
-                                        Sin direcciones.
+                                        Sin proveedores.
+                                    </p>
+                                </li>
+                            @endforelse
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="flex items-center">
+                            <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                                Articulo/s:
+                            </h2>
+                        </div>
+                        <ul>
+                            @forelse ($provider->articles as $article)
+                            <li>
+                                <a href="{{ route('articles.show',$article->id) }}" class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">
+                                    {{ $article->name }}
+                                </a>
+                            </li>
+                            @empty
+                                <li>
+                                    <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
+                                        Sin articulos.
                                     </p>
                                 </li>
                             @endforelse

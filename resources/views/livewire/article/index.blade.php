@@ -65,8 +65,11 @@
                                             <td class="px-6 py-4">
                                                 <a href="{{ route('articles.show',$article) }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
                                                 @can('article:edit')
-                                                    <a href="{{ route('articles.edit',$article) }}" wire:navigate class="ml-1     font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                                                    <a href="{{ route('articles.edit',$article) }}" wire:navigate class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                                                 @endcan
+                                                @can('article:delete')
+                                                    <a wire:confirm='Seguro que desea eliminar este articulo?.' wire:click.live='delete("{{ $article->id }}")' wire:loading.attr='disabled' class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">Eliminar</a>
+                                            @endcan
                                             </td>
                                         </tr>
                                     @else
@@ -75,12 +78,18 @@
                                                 {{ $article->name }}
                                             </td>
                                             <td class="px-6 py-4">
-                                                {{ $article->email }}
+                                                {{ $article->price }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $article->stock }}
                                             </td>
                                             <td class="px-6 py-4">
                                                 <a href="{{ route('articles.show',$article) }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
                                                 @can('article:edit')
                                                     <a href="{{ route('articles.edit',$article) }}" wire:navigate class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                                                @endcan
+                                                @can('article:delete')
+                                                    <a href="" wire:confirm='Seguro que desea eliminar este articulo?.' wire:click.live='delete("{{ $article->id }}")' wire:loading.attr='disabled' class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
                                                 @endcan
                                             </td>
                                         </tr>

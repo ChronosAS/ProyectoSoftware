@@ -18,7 +18,10 @@ class Create extends Component
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ],[
             'name.required' => 'El campo nombre es obligatorio.',
+            'name.max' => 'El campo nombre sobrepasa el maximo de caracteres.',
+            'email.max' => 'El campo email sobrepasa el maximo de caracteres.',
             'email.unique' => 'El correo electrónico ya esta registrado.',
+            'email.email' => 'Ingrese un correo valido.',
         ]);
 
         Provider::create([

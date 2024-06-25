@@ -20,32 +20,49 @@
                             <div class="flex items-center">
                                 <x-label for="description" value="Descripcion" />
                             </div>
-                            <x-input id="description" class="block mt-1 w-full" type="description" name="description" wire:model='description'  autocomplete="description" />
+
+                            <x-input id="description" class="block mt-1 w-full" type="text" description="description" wire:model='description'  autofocus autocomplete="description" />
+
                         </div>
+
                         <div>
                             <div class="flex items-center">
                                 <x-label for="categories" value="Categorias" />
                             </div>
                             <select multiple name="categories" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" id="categories" wire:model='categories'>
-                            <option value="" selected disabled>Seleccione uno</option>
-                            @forelse ( $all_categories as $category)
-                                <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
-                            @empty
-                                <option value="" disabled>No hay categorias</option>
-                            @endforelse
-                        </select>
+                                <option value="" selected disabled>Seleccione uno</option>
+                                @forelse ( $all_categories as $category)
+                                    <option value="{{ $category->id }}">{{ ucfirst($category->name) }}</option>
+                                @empty
+                                    <option value="" disabled>No hay categorias</option>
+                                @endforelse
+                            </select>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center">
+                                <x-label for="providers" value="Proveedores" />
+                            </div>
+                            <select multiple name="providers" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" id="provider" wire:model='providers'>
+                                <option value="" selected disabled>Seleccione uno</option>
+                                @forelse ( $all_providers as $provider)
+                                    <option value="{{ $provider->id }}">{{ ucfirst($provider->name) }}</option>
+                                @empty
+                                    <option value="" disabled>No hay proveedores</option>
+                                @endforelse
+                            </select>
                         </div>
                         <div>
                             <div class="flex items-center">
-                                <x-label for="price" value="Precio" />
+                                <x-label for="price" value="Precio(Bs)" />
                             </div>
-                            <x-input id="price" class="block mt-1 w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" type="number" name="price" wire:model='price'  autocomplete="price" />
+                            <x-input id="price" class="block mt-1 w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" type="number" name="price" wire:model='price'  autocomplete="price" step="0.01"/>
                         </div>
                         <div>
                             <div class="flex items-center">
                                 <x-label for="stock" value="Disponibles" />
                             </div>
-                            <x-input id="stock" min="0" class="block mt-1 w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" type="number" name="stock" autocomplete="stock" />
+                            <x-input id="stock" wire:model='stock' min="0" class="block mt-1 w-full " type="number" name="stock" autocomplete="stock" />
                         </div>
                         <div>
                             <div class="flex items-center" >

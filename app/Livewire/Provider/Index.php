@@ -19,6 +19,13 @@ class Index extends Component
         'sortAsc' => ['except'=>false]
     ];
 
+    public function delete($provider)
+    {
+        $provider = Provider::withTrashed()->find($provider);
+        $provider->articles()->detach($provider->articles->pluck('id')->toArray());
+        $provider->forceDelete();
+    }
+
     private function loadProviders(){
         return Provider::query()
             ->select([

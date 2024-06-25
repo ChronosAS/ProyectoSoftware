@@ -56,6 +56,9 @@
                                                 @can('provider:edit')
                                                     <a href="{{ route('providers.edit',$provider) }}" wire:navigate class="ml-1     font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                                                 @endcan
+                                                @can('provider:delete')
+                                                    <a href="" wire:confirm='Seguro que desea eliminar este proveedor?.' wire:click.live='delete("{{ $provider->id }}")' wire:loading.attr='disabled' class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @else
@@ -70,6 +73,9 @@
                                                 <a href="{{ route('providers.show',$provider) }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
                                                 @can('provider:edit')
                                                     <a href="{{ route('providers.edit',$provider) }}" wire:navigate class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                                                @endcan
+                                                @can('provider:delete')
+                                                    <a href="" wire:confirm='Seguro que desea eliminar este proveedor?.' wire:click.live='delete("{{ $provider->id }}")' wire:loading.attr='disabled' class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
                                                 @endcan
                                             </td>
                                         </tr>

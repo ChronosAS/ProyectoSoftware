@@ -37,7 +37,7 @@ class Create extends Component
             'password.required' => 'Ingrese una contraseña.',
             'password.min' => 'Su contraseña debe tener al menos 8 caracteres.',
             'document.required' => 'El numero de cedula es obligatorio.',
-            'document.unique' => 'El numero de ceula ya esta registrado.',
+            'document.unique' => 'El numero de cedula ya esta registrado.',
             'name.required' => 'El campo nombre es obligatorio.',
             'type.required' => 'Elija un tipo de persona.',
             'email.required' => 'El correo electrónico es obligatorio.',

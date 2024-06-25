@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->uuid('id');
-            $table->foreignUuid('category_id');
             $table->string('name');
             $table->string('description',200)->nullable();
             $table->unsignedInteger('stock')->nullable();

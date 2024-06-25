@@ -45,6 +45,9 @@
                                                 @can('category:edit')
                                                     <a href="{{ route('categories.edit',$category) }}" wire:navigate class="ml-1     font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
                                                 @endcan
+                                                @can('category:delete')
+                                                    <a href="" wire:confirm='Seguro que desea eliminar este proveedor?.' wire:click.live='delete("{{ $category->id }}")' wire:loading.attr='disabled' class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @else
@@ -56,6 +59,9 @@
                                                 <a href="{{ route('categories.show',$category) }}" wire:navigate class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
                                                 @can('category:edit')
                                                     <a href="{{ route('categories.edit',$category) }}" wire:navigate class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                                                @endcan
+                                                @can('category:delete')
+                                                    <a href="" wire:confirm='Seguro que desea eliminar este proveedor?.' wire:click.live='delete("{{ $category->id }}")' wire:loading.attr='disabled' class="ml-1 font-medium text-blue-600 dark:text-blue-500 hover:underline">Eliminar</a>
                                                 @endcan
                                             </td>
                                         </tr>

@@ -25,15 +25,13 @@
                             Proveedores
                         </x-nav-link>
                     @endcan
-                </div>
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <div class="ms-3 relative">
+                    <div class="relative mt-5 pb-5">
                         @can('article:access')
                             <x-dropdown align="left" width="48">
                                 <x-slot name="trigger">
-                                    <span class="inline-flex rounded-md text-gray-400 cursor-pointer">
+                                    <x-nav-link :active="request()->routeIs('articles.index') ?? request()->routeIs('categories.index')" class="cursor-pointer">
                                         Articulos
-                                    </span>
+                                    </x-nav-link>
                                 </x-slot>
 
                                 <x-slot name="content">
