@@ -29,7 +29,7 @@ class Create extends Component
             'description' => ['nullable','string','max:200'],
             'categories' => ['nullable'],
             'providers' => ['required'],
-            'price' => ['required','decimal:2','min:0'],
+            'price' => ['required','decimal:0,2','between:0,999999.99'],
             'stock' => ['nullable','integer','min:0','max:100'],
             'image' => ['nullable','image','max:4096']
         ],[

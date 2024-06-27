@@ -12,9 +12,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/',App\Livewire\Catalog::class)->name('catalog');
 
     Route::middleware(PermissionMiddleware::using('user:access'))
         ->prefix('/user')->group(function(){

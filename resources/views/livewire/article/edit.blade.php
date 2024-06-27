@@ -76,7 +76,7 @@
                             Regresar
                         </x-button-href>
                         <x-button class="ms-4">
-                            Crear
+                            Actualizar
                         </x-button>
                     </div>
                 </form>

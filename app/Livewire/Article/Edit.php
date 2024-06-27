@@ -76,7 +76,7 @@ class Edit extends Component
         ]);
 
         if($this->image){
-            ($this->article->getFirstMedia())->delete();
+            ($this->article->getFirstMedia('article-image'))->delete();
             $this->article->addMedia($this->image->getRealPath())
             ->usingName($this->image->getClientOriginalName())
             ->toMediaCollection('article-image');
@@ -89,12 +89,13 @@ class Edit extends Component
 
         if($this->providers){
             $this->article->providers()->detach($this->old_providers);
+            $this->article->providers()->attach($this->providers);
         }
 
         session()->flash('flash.banner','Articulo creado con exito.');
         session()->flash('flash.bannerStyle','success');
 
-        return redirect()->route('articles.index');
+        return redirect()->route('articles.show',$this->article->id);
     }
 
     #[Layout('layouts.app')]

@@ -24,6 +24,19 @@
 
                 <div class="bg-gray-200 dark:bg-gray-800 bg-opacity-25 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-6 lg:p-8">
 
+                    <div class="col-span-2">
+                        <div class="flex items-center">
+                            <h2 class="text-xl mb-4 font-semibold text-gray-900 dark:text-white">
+                                Imagen:
+                            </h2>
+                        </div>
+                        {{-- <a href="{{ $image->getUrl() }}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer"> --}}
+                            {{ $image('thumb') }}
+                        {{-- </a> --}}
+
+                    </div>
+
+
                     <div>
                         <div class="flex items-center">
                             <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -60,19 +73,6 @@
                         <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
                             {{ $article->stock }}
                         </p>
-
-                    </div>
-
-                    <div>
-                        <div class="flex items-center">
-                            <h2 class="text-xl mb-4 font-semibold text-gray-900 dark:text-white">
-                                Imagen:
-                            </h2>
-                        </div>
-
-                        <a href="{{ $image->getUrl() }}" target="_blank" class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">
-                            {{ $image->name }}
-                        </a>
 
                     </div>
 

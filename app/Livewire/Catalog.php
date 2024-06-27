@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Livewire\Article;
+namespace App\Livewire;
 
 use App\Concerns\LivewireCustomPagination;
 use App\Models\Article;
-use App\Models\Category;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class Index extends Component
+class Catalog extends Component
 {
+
     use LivewireCustomPagination;
 
     public $sortField = null;
@@ -20,15 +20,8 @@ class Index extends Component
         'sortAsc' => ['except'=>false]
     ];
 
-    public function delete($article)
+    private function loadArticles()
     {
-        $article = Article::withTrashed()->find($article);
-        $article->categories()->detach($article->categories->pluck('id')->toArray());
-        $article->providers()->detach($article->providers->pluck('id')->toArray());
-        $article->forceDelete();
-    }
-
-    private function loadArticles(){
         return Article::query()
             ->select([
                 'id',
@@ -37,6 +30,7 @@ class Index extends Component
                 'price',
                 'stock',
             ])
+            ->where('stock','>',0)
             ->withAggregate('categories','name')
             ->withAggregate('providers','name')
             ->withAggregate('providers','email')
@@ -45,12 +39,11 @@ class Index extends Component
             ->paginate($this->perPage);
     }
 
-    #[Layout('layouts.app',['header'=>'Articulos'])]
+    #[Layout('layouts.app')]
     public function render()
     {
-        return view('livewire.article.index',[
-            'articles' => $this->loadArticles(),
-            'categories' => Category::all(),
+        return view('livewire.catalog',[
+            'articles' => $this->loadArticles()
         ]);
     }
 }
