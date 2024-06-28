@@ -13,6 +13,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/',App\Livewire\Catalog::class)->name('catalog');
+    Route::get('/cart',App\Livewire\Cart::class)->name('cart');
 
     Route::middleware(PermissionMiddleware::using('user:access'))
         ->prefix('/user')->group(function(){

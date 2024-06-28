@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Concerns\LivewireCustomPagination;
+use App\Facades\CartFacade as Cart;
 use App\Models\Article;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -37,6 +38,11 @@ class Catalog extends Component
             ->search($this->search)
             ->orderBy($this->sortField ?? 'id', $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->perPage);
+    }
+
+    public function addToCart(string $productId): void
+    {
+        Cart::add(Article::where('id', $productId)->first());
     }
 
     #[Layout('layouts.app')]
