@@ -12,7 +12,7 @@ class HelperServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('helpers', function ($app) {
+        $this->app->singleton('cart', function ($app) {
             return new Cart();
         });
     }

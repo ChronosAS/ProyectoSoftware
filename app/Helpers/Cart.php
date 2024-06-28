@@ -12,17 +12,45 @@ class Cart
             $this->set($this->empty());
     }
 
-    public function add(Article $article): void
+    public function add(Article $article,$key,$quantity): void
     {
         $cart = $this->get();
-        array_push($cart['articles'], $article);
+
+        if ($key === false) {
+
+            $new_article = [
+                'article' => $article,
+                'quantity' => $quantity
+            ];
+
+            array_push($cart['articles'], $new_article);
+
+        } else {
+
+            $cart['articles'][$key]['quantity']+=$quantity;
+        }
+
         $this->set($cart);
     }
 
-    public function remove(string $articleId): void
+    public function removeOne(string $articleId): void
     {
         $cart = $this->get();
-        array_splice($cart['articles'], array_search($articleId, array_column($cart['articles'], 'id')), 1);
+        $cart['articles'][array_search($articleId,array_column(array_column(Cart::get()['articles'],'article'),'id'))]['quantity']--;
+        $this->set($cart);
+    }
+
+    public function addOne(string $articleId): void
+    {
+        $cart = $this->get();
+        $cart['articles'][array_search($articleId,array_column(array_column(Cart::get()['articles'],'article'),'id'))]['quantity']++;
+        $this->set($cart);
+    }
+
+    public function removeAll(string $articleId): void
+    {
+        $cart = $this->get();
+        array_splice($cart['articles'], array_search($articleId,array_column(array_column(Cart::get()['articles'],'article'),'id')), 1);
         $this->set($cart);
     }
 

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Concerns\LivewireCustomPagination;
 use App\Facades\CartFacade as Cart;
 use App\Models\Article;
+use App\Models\Category;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -14,6 +15,7 @@ class Catalog extends Component
     use LivewireCustomPagination;
 
     public $sortField = null;
+    public $category = [];
 
     protected $queryString = [
         'sortField' => ['except'=>''],
@@ -35,21 +37,29 @@ class Catalog extends Component
             ->withAggregate('categories','name')
             ->withAggregate('providers','name')
             ->withAggregate('providers','email')
+            ->when($this->category, function ($query){
+                return $query->whereHas('categories', function($q){
+                    $q->whereIn('category_id',$this->category);
+                });
+            })
             ->search($this->search)
             ->orderBy($this->sortField ?? 'id', $this->sortAsc ? 'ASC' : 'DESC')
             ->paginate($this->perPage);
     }
 
-    public function addToCart(string $productId): void
+    public function addToCart(string $articleId): void
     {
-        Cart::add(Article::where('id', $productId)->first());
+        $key = array_search($articleId,array_column(array_column(Cart::get()['articles'],'article'),'id'));
+
+        Cart::add(Article::where('id', $articleId)->first(),$key,4);
     }
 
-    #[Layout('layouts.app')]
+    #[Layout('layouts.app',['header' => 'Productos'])]
     public function render()
     {
         return view('livewire.catalog',[
-            'articles' => $this->loadArticles()
+            'articles' => $this->loadArticles(),
+            'all_categories' => Category::all()
         ]);
     }
 }

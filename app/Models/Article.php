@@ -42,6 +42,9 @@ class Article extends Model implements HasMedia
                     $query->where('article_price','like','%'.$term.'%')
                         ->orWhere('name','like','%'.$term.'%')
                         ->orWhere('email','like','%'.$term.'%');
+                })
+                ->orWhereHas('categories', function($query) use ($term){
+                    $query->where('name','like','%'.$term.'%');
                 });
         }
     }

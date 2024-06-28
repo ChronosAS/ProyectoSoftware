@@ -76,7 +76,7 @@ class Edit extends Component
         ]);
 
         if($this->image){
-            ($this->article->getFirstMedia('article-image'))->delete();
+            ($this->article->getFirstMedia('article-image'))?->delete();
             $this->article->addMedia($this->image->getRealPath())
             ->usingName($this->image->getClientOriginalName())
             ->toMediaCollection('article-image');
