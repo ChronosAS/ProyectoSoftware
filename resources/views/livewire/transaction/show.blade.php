@@ -36,19 +36,37 @@
                         </p>
 
                     </div>
+                    @if (!$transaction->payment_ref)
 
-                    <div>
-                        <div class="flex items-center">
-                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                Monto Total:
-                            </h2>
+                        <div>
+                            <form wire:submit='save'>
+                                <div class="flex items-center">
+                                    <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                        Ingresar referencia de pago:
+                                    </h2>
+                                </div>
+
+                                <x-input id="payment_ref" class="block mt-1 w-full" type="text" name="payment_ref" wire:model='payment_ref'  autofocus autocomplete="payment_ref" />
+                                <x-button class="mt-2">
+                                    Subir
+                                </x-button>
+                            </form>
+
                         </div>
+                    @else
+                        <div>
+                            <div class="flex items-center">
+                                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    Referencia de pago:
+                                </h2>
+                            </div>
 
-                        <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
-                            {{ $transaction->total_price }}
-                        </p>
+                            <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
+                                {{ $transaction->payment_ref }}
+                            </p>
 
-                    </div>
+                        </div>
+                    @endif
 
                     <div>
                         <div class="flex items-center">
@@ -116,43 +134,24 @@
                                     @endforelse
                                 </tbody>
                             </table>
-                            <div class="text-right w-full p-2">
-                                <button wire:click="enterPaymentRefModal()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                    Pago
-                                </button>
-                            </div>
                         </div>
                     </div>
+
+                    <div>
+                        <div class="flex items-center">
+                            <h2 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Monto Total:
+                            </h2>
+                        </div>
+
+                        <p class="mt-4 text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
+                            {{ $transaction->total_price }}
+                        </p>
+
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <x-dialog-modal wire:model.live="enterPaymentRef">
-        <x-slot name="title">
-            Pago
-        </x-slot>
-
-        <x-slot name="content">
-            {{ __('Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
-
-            <div class="mt-4" x-data="{}" x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
-                <div class="flex items-center">
-                    <x-label for="name" value="{{ __('Name') }}" />
-                </div>
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" wire:model='name'  autofocus autocomplete="name" />
-
-            </div>
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-secondary-button wire:click="$toggle('enterPaymentRef')" wire:loading.attr="disabled">
-                {{ __('Cancel') }}
-            </x-secondary-button>
-
-            <x-danger-button class="ms-3" wire:click="deleteUser" wire:loading.attr="disabled">
-                {{ __('Delete Account') }}
-            </x-danger-button>
-        </x-slot>
-    </x-dialog-modal>
  </div>
