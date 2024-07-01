@@ -96,8 +96,8 @@
                                     @endif
                                 @empty
                                     <tr>
-                                        <td class="px-6 py-4 text-center text-xl">
-                                            No hay proveedores registrados.
+                                        <td class="px-6 py-4 text-center text-xl" colspan="4">
+                                            No hay articulos registrados.
                                         </td>
                                     </tr>
                                 @endforelse

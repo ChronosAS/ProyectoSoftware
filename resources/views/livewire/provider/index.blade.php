@@ -82,7 +82,7 @@
                                     @endif
                                 @empty
                                     <tr>
-                                        <td class="px-6 py-4 text-center text-xl">
+                                        <td class="px-6 py-4 text-center text-xl" colspan="3">
                                             No hay proveedores registrados.
                                         </td>
                                     </tr>

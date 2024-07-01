@@ -51,7 +51,7 @@ class Catalog extends Component
     {
         $key = array_search($articleId,array_column(array_column(Cart::get()['articles'],'article'),'id'));
 
-        Cart::add(Article::where('id', $articleId)->first(),$key,4);
+        Cart::add(Article::where('id', $articleId)->first(),$key,1);
     }
 
     #[Layout('layouts.app',['header' => 'Productos'])]

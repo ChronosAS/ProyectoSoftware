@@ -68,9 +68,6 @@ class Create extends Component
             }
         });
 
-        session()->flash('flash.banner','Articulo creado con exito.');
-        session()->flash('flash.bannerStyle','success');
-
         return redirect()->route('articles.index');
     }
 

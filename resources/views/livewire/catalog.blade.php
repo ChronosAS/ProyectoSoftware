@@ -12,7 +12,7 @@
                             <input wire:model.live='search' type="text" name="search" id="search" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar...">
                         </div>
                         <div wire:ignore>
-                            <button id="dropdownDefault" data-dropdown-toggle="categoriesDropdown"
+                            <button id="categories" data-dropdown-toggle="categoriesDropdown"
                               class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm p-2 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                               type="button">
                               Filtrar por Categoria
@@ -27,8 +27,8 @@
                                 <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
                                     Categorias
                                 </h6>
-                                <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
-                                    @foreach ($all_categories as $key => $category)
+                                <ul class="space-y-2 text-sm" aria-labelledby="categories">
+                                    @forelse ($all_categories as $key => $category)
                                         <li class="flex items-center">
                                             <input wire:model.live='category' type="checkbox" value="{{ $category->id }}"
                                                 class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
@@ -37,7 +37,11 @@
                                                 {{ $category->name }}
                                             </label>
                                         </li>
-                                    @endforeach
+                                    @empty
+                                        <li class="flex items-center text-white">
+                                            No hay categorias.
+                                        </li>
+                                    @endforelse
 
                                 </ul>
                             </div>
@@ -63,6 +67,7 @@
                                         </h3>
                                     </div>
                                     <p class="text-xs font-medium dark:text-white text-gray-900">{{ $article->price }} Bs.</p>
+                                    <p class="text-xs font-medium dark:text-white text-gray-900">{{ $article->quantity }}</p>
                                 </div>
                             </div>
                         @empty
