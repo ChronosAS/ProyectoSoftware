@@ -51,25 +51,79 @@
                     {{-- https://lightit.io/blog/laravel-livewire-shopping-cart-demo/ --}}
                     <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
                         @forelse ($articles as $index => $article)
-                            <div class="group relative rounded-md p-3" style="background: rgb(17,24,39)">
-                                @if($article->getFirstMedia('article-image'))
-                                    <div class="aspect-h-1 aspect-w-1 w-full bg-gray overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                                        <img src="{{ ($article->getFirstMedia('article-image')->getUrl('thumb')) }}" alt="{{ $article->name.'-img' }}" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                        <div class="relative m-10 flex w-full max-w-xs flex-col overflow-hidden rounded-lg border dark:border-gray-700 border-gray-100 dark:bg-gray-900 bg-white shadow-md shadow-gray-950/50">
+                            @if($article->getFirstMedia('article-image'))
+                                <div class="flex items-center justify-center w-full h-80 bg-gray-300 rounded sm:w-[400px]} dark:bg-gray-700">
+                                    <img src="{{ ($article->getFirstMedia('article-image')->getUrl('thumb')) }}" alt="{{ $article->name.'-img' }}" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                                </div>
+                                @else
+                                    <div class="flex items-center justify-center w-full h-80 bg-gray-300 rounded sm:w-[400px]} dark:bg-gray-700">
+                                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                            <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                                        </svg>
                                     </div>
                                 @endif
-                                <div class="mt-4 flex justify-between">
-                                    <div>
-                                        <h3 class="text-sm text-gray-700 dark:text-white">
-                                            <a class="cursor-pointer" @click=($wire.addToCart('{{ $article->id }}'))>
-                                                <span aria-hidden="true" class="absolute inset-0"></span>
-                                                {{ $article->name }}
-                                            </a>
-                                        </h3>
-                                    </div>
-                                    <p class="text-xs font-medium dark:text-white text-gray-900">{{ $article->price }} Bs.</p>
-                                    <p class="text-xs font-medium dark:text-white text-gray-900">{{ $article->quantity }}</p>
+                            {{-- <a class="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
+                              <img class="object-cover" src="{{ ($article->getFirstMedia('article-image')->getUrl('thumb')) }}" alt="{{ $article->name.'-img' }}" alt="product image" />
+                            </a> --}}
+                            <div class="mt-4 px-5 pb-5">
+                              {{-- <a href="{{ route('articles.show',$article->id) }}"> --}}
+                                <h5 class="text-xl tracking-tight text-slate-900 dark:text-white">{{ $article->name }}</h5>
+                              {{-- </a> --}}
+                              <div class="mt-2 mb-2 flex items-center justify-between">
+                                <p>
+                                  <span class="text-2xl font-bold text-slate-900 dark:text-white">{{ $article->price }} Bs.</span>
+                                </p>
+                              </div>
+                              <div class="mb-5 flex items-center justify-between">
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">
+                                        Disponibles: {{ $article->available }}
+                                    </p>
+                              </div>
+                              <div class="flex flex-col items-center">
+                                    <button wire:click='addToCart("{{ $article->id }}")' type="button" class="flex items-center justify-center rounded-md bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-500 focus:outline-none disabled:bg-blue-500 disabled:cursor-default focus:ring-4 focus:ring-blue-600" {{ ($article->available==0) ? 'disabled' : '' }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                        </svg>
+                                        Agregar al carrito
+                                    </button>
                                 </div>
                             </div>
+                          </div>
+
+                            {{-- <div class="group relative rounded-md p-3" style="background: rgb(17,24,39)">
+                                @if($article->getFirstMedia('article-image'))
+                                    <div class="aspect-h-1 aspect-w-1 w-full bg-gray overflow-hidden rounded-md bg-gray-200 lg:aspect-none lg:h-80">
+                                        <img src="{{ ($article->getFirstMedia('article-image')->getUrl('thumb')) }}" alt="{{ $article->name.'-img' }}" class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                                    </div>
+                                @else
+                                    <div class="flex items-center justify-center w-full h-80 bg-gray-300 rounded sm:w-[400px]} dark:bg-gray-700">
+                                        <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                            <path d="M18 0H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm4.376 10.481A1 1 0 0 1 16 15H4a1 1 0 0 1-.895-1.447l3.5-7A1 1 0 0 1 7.468 6a.965.965 0 0 1 .9.5l2.775 4.757 1.546-1.887a1 1 0 0 1 1.618.1l2.541 4a1 1 0 0 1 .028 1.011Z"/>
+                                        </svg>
+                                    </div>
+                                @endif
+                                <div class="mt-4 flex justify-between dark:text-white">
+                                    <div>
+                                        <h3>
+                                            {{ $article->name }}
+                                        </h3>
+                                        <p class="text-xs font-medium dark:text-white text-gray-900">Disponibles: {{ $article->available }}</p>
+                                    </div>
+                                    <div class="">
+                                        <p class=" font-medium dark:text-white text-gray-900">{{ $article->price }} Bs.</p>
+                                        <h2 class="text-xs">En carrito: {{ $article->inCart }}</h2>
+                                    </div>
+                                    <div class="">
+                                        <button wire:click='addToCart("{{ $article->id }}")' type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" {{ ($article->available==0) ? 'disabled' : '' }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4">
+                                                <path fill-rule="evenodd" d="M12 3.75a.75.75 0 0 1 .75.75v6.75h6.75a.75.75 0 0 1 0 1.5h-6.75v6.75a.75.75 0 0 1-1.5 0v-6.75H4.5a.75.75 0 0 1 0-1.5h6.75V4.5a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
+                                            </svg>
+                                            <span class="sr-only">Add to cart</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> --}}
                         @empty
                             <h1 class="text-3xl dark:text-white">No hay articulos disponibles.</h1>
                         @endforelse

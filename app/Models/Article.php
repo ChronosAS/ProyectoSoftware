@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Facades\CartFacade;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Image\Enums\CropPosition;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -49,6 +50,28 @@ class Article extends Model implements HasMedia
         }
     }
 
+    public function inCart(): Attribute
+    {
+        $cart = CartFacade::get();
+
+        $quantity = $cart['articles'][$this->id]['quantity'] ?? 0;
+
+        return new Attribute(
+            get: fn() => $quantity
+        );
+    }
+
+    public function available(): Attribute
+    {
+        $cart = CartFacade::get();
+
+        $quantity = $this->stock-($cart['articles'][$this->id]['quantity'] ?? 0);
+
+        return new Attribute(
+            get: fn() => ($quantity>=0) ? $quantity : 0
+        );
+    }
+
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
@@ -57,5 +80,10 @@ class Article extends Model implements HasMedia
     public function providers(): BelongsToMany
     {
         return $this->belongsToMany(Provider::class)->withPivot('article_price');
+    }
+
+    public function transactions(): BelongsToMany
+    {
+        return $this->belongsToMany(Transaction::class,'transaction_articles')->withPivot('quantity','total_price');
     }
 }

@@ -16,20 +16,17 @@ class Cart
     {
         $cart = $this->get();
 
-        if ($key === false) {
+        if ($cart['articles'][$article->id]??false) {
 
-            $new_article = [
+            $cart['articles'][$article->id]['quantity']+=$quantity;
+            $cart['articles'][$article->id]['total_price'] = $this->getTotalPrice($cart,$article->id);
+
+        } else {
+            $cart['articles'][$article->id] = [
                 'article' => $article,
                 'quantity' => $quantity,
                 'total_price' => $article->price*$quantity
             ];
-
-            array_push($cart['articles'], $new_article);
-
-        } else {
-
-            $cart['articles'][$key]['quantity']+=$quantity;
-            $cart['articles'][$key]['total_price'] = $this->getTotalPrice($cart,$key);
         }
 
         $this->set($cart);
@@ -38,42 +35,40 @@ class Cart
     public function removeOne(string $articleId): void
     {
         $cart = $this->get();
-        $key = $this->search($articleId);
-        $cart['articles'][$key]['quantity']--;
-        $cart['articles'][$key]['total_price'] = $this->getTotalPrice($cart,$key);
+        $cart['articles'][$articleId]['quantity']--;
+        $cart['articles'][$articleId]['total_price'] = $this->getTotalPrice($cart,$articleId);
         $this->set($cart);
     }
 
-    public function getTotalPrice(array $cart,int $key)
+    public function getTotalPrice(array $cart,string $id)
     {
-        return $cart['articles'][$key]['quantity']*$cart['articles'][$key]['article']->price;
+        return $cart['articles'][$id]['quantity']*$cart['articles'][$id]['article']->price;
     }
 
     public function addOne(string $articleId): void
     {
         $cart = $this->get();
-        $key = $this->search($articleId);
-        $cart['articles'][$key]['quantity']++;
-        $cart['articles'][$key]['total_price'] = $this->getTotalPrice($cart,$key);
+        $cart['articles'][$articleId]['quantity']++;
+        $cart['articles'][$articleId]['total_price'] = $this->getTotalPrice($cart,$articleId);
         $this->set($cart);
     }
 
-    public function search(string $articleId)
-    {
-        return array_search($articleId,array_column(array_column(Cart::get()['articles'],'article'),'id'));
-    }
+    // public function search(string $articleId)
+    // {
+    //     return array_search($articleId,array_column(array_column(Cart::get()['articles'],'article'),'id'));
+    // }
 
     public function removeAll(string $articleId): void
     {
         $cart = $this->get();
-        array_splice($cart['articles'],$this->search($articleId), 1);
+        unset($cart['articles'][$articleId]);
         $this->set($cart);
     }
 
     public function remove(string $articleId): void
     {
         $cart = $this->get();
-        if($cart['articles'][$this->search($articleId)]['quantity'] == 1){
+        if($cart['articles'][$articleId]['quantity'] == 1){
             $this->removeAll($articleId);
         }else{
             $this->removeOne($articleId);

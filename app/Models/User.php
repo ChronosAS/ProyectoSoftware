@@ -92,6 +92,11 @@ class User extends Authenticatable implements HasMedia
         return $this->morphMany(Address::class,'entity');
     }
 
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *

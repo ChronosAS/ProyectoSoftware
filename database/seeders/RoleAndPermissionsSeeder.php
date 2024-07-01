@@ -47,6 +47,7 @@ class RoleAndPermissionsSeeder extends Seeder
             'article' => $this->defaultActions(),
             'provider' => $this->defaultActions(),
             'user' => $this->defaultActions(),
+            'transaction' => $this->defaultActions(),
         ];
     }
 

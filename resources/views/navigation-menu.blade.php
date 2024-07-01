@@ -33,6 +33,13 @@
                             Proveedores
                         </x-nav-link>
                     @endcan
+
+                    @can('transaction:access')
+                        <x-nav-link href="{{ route('transactions.index') }}" :active="request()->routeIs('transactions.index')">
+                            Transacciones
+                        </x-nav-link>
+                    @endcan
+
                     <div class="relative mt-5 pb-5">
                         @can('article:access')
                             <x-dropdown align="left" width="48">
@@ -147,6 +154,10 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link href="{{ route('transactions.index') }}">
+                                Transacciones
+                            </x-dropdown-link>
+
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                     {{ __('API Tokens') }}
@@ -195,6 +206,11 @@
             @can('provider:access')
                 <x-responsive-nav-link href="{{ route('providers.index') }}" :active="request()->routeIs('providers.index')">
                     Proveedores
+                </x-responsive-nav-link>
+            @endcan
+            @can('transaction:access')
+                <x-responsive-nav-link href="{{ route('transactions.index') }}" :active="request()->routeIs('transactions.index')">
+                    Transacciones
                 </x-responsive-nav-link>
             @endcan
         </div>

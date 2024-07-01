@@ -47,4 +47,15 @@ Route::middleware([
         Route::get('/{category}',App\Livewire\Category\Show::class)->name('categories.show');
     });
 
+    Route::middleware(PermissionMiddleware::using('transaction:access'))
+        ->prefix('/admin/transaction')->group(function(){
+        Route::get('/',App\Livewire\Transaction\Admin\Index::class)->name('transactions.admin.index');
+        Route::get('/show/{transaction}',App\Livewire\Transaction\Admin\Show::class)->name('transactions.admin.show');
+    });
+
+    Route::prefix('/transaction')->group(function(){
+        Route::get('/',App\Livewire\Transaction\Index::class)->name('transactions.index');
+        Route::get('/show/{transaction}',App\Livewire\Transaction\Show::class)->name('transactions.show');
+    });
+
 });

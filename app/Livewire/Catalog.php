@@ -16,12 +16,18 @@ class Catalog extends Component
 
     public $sortField = null;
     public $category = [];
+    public $cart;
 
     protected $queryString = [
         'sortField' => ['except'=>''],
         'perPage' => ['except'=>10],
         'sortAsc' => ['except'=>false]
     ];
+
+    public function mount(): void
+    {
+        $this->cart = Cart::get();
+    }
 
     private function loadArticles()
     {
